@@ -1,22 +1,20 @@
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchMessage } from './redux/messagesSlice';
+import React from 'react';
+import { useSelector } from 'react-redux';
 
 const Greeting = () => {
   const messages = useSelector((state) => state.messages);
-  const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(fetchMessage());
-  }, []);
+  if (messages.isLoading) {
+    return <h1>Loading...</h1>;
+  }
 
   return (
-    <div>
-      <h1>
-        <span>Random Greeting: </span>
-        <span>{messages}</span>
-      </h1>
-    </div>
+        <>
+            <h1>
+                <span>Random Greeting: </span>
+                <span>{messages.message}</span>
+            </h1>
+        </>
   );
 };
 
